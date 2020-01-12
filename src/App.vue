@@ -1,32 +1,90 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-navigation-drawer
+        temporary
+        app
+        v-model="drawer"
+    >
+      <!-- -->
+
+      <v-list flat>
+        <v-subheader>МЕНЮ</v-subheader>
+        <v-list-item-group v-model="item" color="primary">
+          <v-list-item
+                  v-for="(item, i) in items"
+                  :key="i"
+          >
+            <v-list-item-content>
+              <v-list-item-title v-text="item.text"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+
+    </v-navigation-drawer>
+
+    <v-app-bar app>
+      <!-- -->
+      <v-app-bar-nav-icon
+        @click="drawer = !drawer"
+      ></v-app-bar-nav-icon>
+        <v-spacer></v-spacer>
+        <v-toolbar-title >
+          <img class="toolbar-img" src="https://yaposhka64.ru/assets/template/img/logo.png.webp" alt="">
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn icon>
+          <v-icon>mdi-cart</v-icon>
+        </v-btn>
+    </v-app-bar>
+
+    <!-- Sizes your content based upon application components -->
+    <v-content>
+
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid>
+
+        <!-- If using vue-router -->
+        <router-view></router-view>
+      </v-container>
+    </v-content>
+
+    <v-footer app>
+      <!-- -->
+    </v-footer>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
+<style>
+  .toolbar-img{
+    max-width: 70%;
+    margin: auto;
+    display: block;
+  }
+</style>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
 
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+
+  export default {
+    data(){
+        return{
+          drawer: false,
+          item: 1,
+          items: [
+            {text: 'Жаренные роллы', url: '/hot'},
+            {text: 'Запеченные роллы', url: '/fare'},
+            {text: 'Суши', url: '/sushi'},
+            {text: 'Сеты', url: '/seti'},
+            {text: 'Классические роллы', url: '/rolls'},
+          ],
+        }
+    },
+    methods:{
+
     }
   }
-}
-</style>
+
+</script>
+
